@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
+import { providers } from "ethers"; // Import providers object from ethers
 
 function EthereumSender() {
   const [privateKey, setPrivateKey] = useState("");
@@ -8,8 +8,8 @@ function EthereumSender() {
   const [transactionHash, setTransactionHash] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const INFURA_RINKEBY_URL =
-    "https://rinkeby.infura.io/v3/YOUR_INFURA_PROJECT_ID"; // Replace with your Infura project ID
+  const INFURA_SEPOLIA_URL =
+    "https://sepolia.infura.io/v3/9c8f60ff327044e2ac13e78e0dd354f8D"; // Replace with your Infura project ID for Sepolia testnet
 
   const sendEther = async () => {
     try {
@@ -18,11 +18,7 @@ function EthereumSender() {
         throw new Error("Please fill in all fields.");
       }
 
-      // Replace the following code with steps to connect to a blockchain node (not Infura or similar services)
-      // 1. Create a new provider instance using the appropriate provider library for your chosen blockchain node.
-      // 2. Example (replace with your actual provider setup):
-      // const provider = new ethers.providers.JsonRpcProvider('YOUR_NODE_URL');
-
+      const provider = new providers.JsonRpcProvider(INFURA_SEPOLIA_URL);
       const signer = new ethers.Wallet(privateKey, provider);
 
       const tx = {
@@ -43,7 +39,7 @@ function EthereumSender() {
 
   return (
     <div>
-      <h2>Ethereum Sender (Rinkeby Testnet)</h2>
+      <h2>Ethereum Sender (Sepolia Testnet)</h2>
       <label>
         Private Key:
         <input
